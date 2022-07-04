@@ -3,6 +3,7 @@ import {AdminsService} from "../../services/admins.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Admin} from "../../models/admin";
 import {Router} from "@angular/router";
+import localizeExtractLoader from "@angular-devkit/build-angular/src/builders/extract-i18n/ivy-extract-loader";
 
 @Component({
   selector: 'app-form-admin',
@@ -12,6 +13,8 @@ import {Router} from "@angular/router";
 export class FormAdminComponent implements OnInit {
 
   constructor(private adminService:AdminsService, private fromBuilder:FormBuilder, private router:Router) { }
+  existingLogin:boolean = false
+  existingTelephone:boolean = false
   genres!:any
   addAdminForm!:FormGroup
   telephonePattern:string = '^(77|78|76|70|75)[0-9]{7}$'
@@ -29,7 +32,6 @@ export class FormAdminComponent implements OnInit {
   public getGenres(){
     this.adminService.getGenres().subscribe({
       next:(data)=>{
-        console.log(data)
         this.genres=data
       },
       error:(error)=> console.log(error)
@@ -38,23 +40,29 @@ export class FormAdminComponent implements OnInit {
 
   addAdmin() {
     // alert(this.addAdminForm.value.genre_id)
-      const admin:Admin = {
-        id:null,
-        prenom : this.addAdminForm.value.prenom,
-        nom : this.addAdminForm.value.nom,
-        login : this.addAdminForm.value.login,
-        adresse : this.addAdminForm.value.adresse,
-        telephone : this.addAdminForm.value.telephone,
-        is_active : true,
-        genre:{
-          id:this.addAdminForm.value.genre_id,
-          libelle:null
+      const admin:Admin ={
+        id: null,
+        prenom: this.addAdminForm.value.prenom,
+        nom: this.addAdminForm.value.nom,
+        login: this.addAdminForm.value.login,
+        adresse: this.addAdminForm.value.adresse,
+        telephone: this.addAdminForm.value.telephone,
+        is_active: true,
+        genre: {
+          id: this.addAdminForm.value.genre_id,
+          libelle: null
         }
       }
-      this.adminService.addAdmin(admin).subscribe({
-        next:()=>this.router.navigate(['admins']),
-        error:(err)=>console.log(err)
-      })
+      // if(this.adminService.findByLogin(this.addAdminForm.value.login.toLowerCase()) != null) !this.existingLogin
+      // if(this.adminService.findByTelephone(this.addAdminForm.value.telephone.toLowerCase())!=null)!this.existingTelephone
+
+      if(!this.existingLogin && !this.existingTelephone){
+        // this.adminService.addAdmin(admin).subscribe({
+        //   next:()=>this.router.navigate(['admins']),
+        //   error:(err)=>console.log(err)
+        // })
+        // console.log()
+      }
   }
   get prenom(){return this.addAdminForm.get('prenom')}
   get nom(){return this.addAdminForm.get('nom')}

@@ -25,6 +25,12 @@ export class AdminsService {
   public getGenres(){
     return this.httpClient.get(`${environment.apiUrl}/genres`)
   }
+  public findByLogin(login:string){
+    return this.httpClient.get(`${environment.apiUrl}/utilisateurs/login/${login}`)
+  }
+  public findByTelephone(telephone:string){
+    return this.httpClient.get(`${environment.apiUrl}/utilisateurs/telephone/${telephone}`)
+  }
   public addAdmin(admin:Admin){
     this.httpClient.post(`${environment.apiUrl}/administrateurs`,admin).subscribe({
       next:(data)=>this.admins ={...data},

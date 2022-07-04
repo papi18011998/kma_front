@@ -17,10 +17,12 @@
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">
       <input type="text" class="form-control" placeholder="Metre votre login" formControlName="login">
       <div  class="text-danger" *ngIf="login && login.touched && login.errors?.['required']">Le login est obligatoire</div>
+      <div  class="text-danger" *ngIf="existingLogin">Le login existe déjà !!!</div>
     </div>
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">
       <input type="text" class="form-control" placeholder="Téléphone" formControlName="telephone" [pattern]="telephonePattern">
       <div  class="text-danger" *ngIf="telephone && telephone.touched && telephone.errors">Format de téléphone incorrect</div>
+      <div  class="text-danger" *ngIf="existingTelephone">Le Téléphone existe déjà !!!</div>
     </div>
   </div>
   <div class="row">
@@ -29,8 +31,8 @@
       <div  class="text-danger" *ngIf="adresse && adresse.touched && adresse.errors?.['required']">L'adresse est obligatoire</div>
     </div>
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">
-      <select id="inputState" class="form-control" formControlName="genre_id">
-        <option *ngFor="let genre of genres" value="{{genre.id}}" [selected]="genre.id==1">{{genre.libelle}}</option>
+      <select id="inputState" class="form-control" formControlName="genre_id" required>
+        <option *ngFor="let genre of genres" value="{{genre.id}}">{{genre.libelle}}</option>
       </select>
     </div>
   </div>
