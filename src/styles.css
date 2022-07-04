@@ -1,1 +1,11 @@
-
+.btn-rounded-right{
+  border-radius: 0 8px 8px 0 !important;
+}
+.input-rounded-left{
+  border-radius: 8px 0 0 8px !important;
+  border-right: none !important;
+}
+.search-add-bloc{
+  display:flex;
+  justify-content: space-between;
+}
