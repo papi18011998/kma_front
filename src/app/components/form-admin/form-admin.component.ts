@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Admin} from "../../models/admin";
 import {Router} from "@angular/router";
 import localizeExtractLoader from "@angular-devkit/build-angular/src/builders/extract-i18n/ivy-extract-loader";
+import {log} from "util";
 
 @Component({
   selector: 'app-form-admin',
@@ -38,31 +39,34 @@ export class FormAdminComponent implements OnInit {
     })
   }
 
-  addAdmin() {
-    // alert(this.addAdminForm.value.genre_id)
-      const admin:Admin ={
-        id: null,
-        prenom: this.addAdminForm.value.prenom,
-        nom: this.addAdminForm.value.nom,
-        login: this.addAdminForm.value.login,
-        adresse: this.addAdminForm.value.adresse,
-        telephone: this.addAdminForm.value.telephone,
-        is_active: true,
-        genre: {
-          id: this.addAdminForm.value.genre_id,
-          libelle: null
+  async addAdmin() {
+    const admin: Admin = {
+      id: null,
+      prenom: this.addAdminForm.value.prenom,
+      nom: this.addAdminForm.value.nom,
+      login: this.addAdminForm.value.login,
+      adresse: this.addAdminForm.value.adresse,
+      telephone: this.addAdminForm.value.telephone,
+      is_active: true,
+      genre: {
+        id: this.addAdminForm.value.genre_id,
+        libelle: null
+      }
+    }
+   await this.adminService.findByLogin(this.addAdminForm.value.login).subscribe({
+      next:(data)=>{(data!=null)?this.existingLogin=true:this.existingLogin=false}
+    })
+    await this.adminService.findByTelephone(this.addAdminForm.value.telephone).subscribe({
+      next: (data) => {
+        (data != null) ? this.existingTelephone = true : this.existingTelephone = false;
+        if (!this.existingLogin && !this.existingTelephone) {
+          this.adminService.addAdmin(admin).subscribe({
+            next: () => this.router.navigate(['admins']),
+            error:(err)=>console.log(err)
+          });
         }
       }
-      // if(this.adminService.findByLogin(this.addAdminForm.value.login.toLowerCase()) != null) !this.existingLogin
-      // if(this.adminService.findByTelephone(this.addAdminForm.value.telephone.toLowerCase())!=null)!this.existingTelephone
-
-      if(!this.existingLogin && !this.existingTelephone){
-        // this.adminService.addAdmin(admin).subscribe({
-        //   next:()=>this.router.navigate(['admins']),
-        //   error:(err)=>console.log(err)
-        // })
-        // console.log()
-      }
+    })
   }
   get prenom(){return this.addAdminForm.get('prenom')}
   get nom(){return this.addAdminForm.get('nom')}
