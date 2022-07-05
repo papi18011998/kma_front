@@ -39,4 +39,7 @@ export class AdminsService {
     })
     return of(this.admins)
 }
+  public changeStatus(id:number){
+    return this.httpClient.put(`${environment.apiUrl}/utilisateurs/status/${id}`,{})
+  }
 }

@@ -33,4 +33,14 @@ export class AdminsComponent implements OnInit {
       return
     this.admins = this.adminsService.searchAdmin(this.searchForm.value.nom.toLowerCase())
   }
+
+  changeStatus(id:number) {
+    let response = confirm("Voulez-vous vraiment changer le status de cet utilisateur ?")
+    if (response){
+      this.adminsService.changeStatus(id).subscribe({
+        next:(data)=>{this.getAdmins()},
+        error:(error)=>{console.log(error)}
+      })
+    }
+  }
 }
