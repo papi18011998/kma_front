@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AdminsService} from "../../services/admins.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Admin} from "../../models/admin";
-import {Router} from "@angular/router";
-import localizeExtractLoader from "@angular-devkit/build-angular/src/builders/extract-i18n/ivy-extract-loader";
-import {log} from "util";
+import {ActivatedRoute, Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-form-admin',
@@ -13,21 +12,30 @@ import {log} from "util";
 })
 export class FormAdminComponent implements OnInit {
 
-  constructor(private adminService:AdminsService, private fromBuilder:FormBuilder, private router:Router) { }
+  constructor(private adminService:AdminsService, private fromBuilder:FormBuilder, private router:Router, private route:ActivatedRoute) { }
   existingLogin:boolean = false
   existingTelephone:boolean = false
+  admins!:any
+  test:number = 0
+  adminToUpdate!:any
   genres!:any
   addAdminForm!:FormGroup
+  is_update:boolean = false
   telephonePattern:string = '^(77|78|76|70|75)[0-9]{7}$'
   ngOnInit(): void {
     this.getGenres()
+    if (this.route.snapshot.params['id']) {
+      this.is_update = true
+      // @ts-ignore
+      this.adminToUpdate = JSON.parse(localStorage.getItem('admin'))
+    }
     this.addAdminForm = this.fromBuilder.group({
-      prenom : this.fromBuilder.control(null,Validators.required),
-      nom : this.fromBuilder.control(null,Validators.required),
-      login : this.fromBuilder.control(null,Validators.required),
-      adresse : this.fromBuilder.control(null,Validators.required),
-      telephone : this.fromBuilder.control(null,[Validators.pattern(this.telephonePattern), Validators.required]),
-      genre_id : this.fromBuilder.control(null)
+      prenom: this.fromBuilder.control((this.is_update)?this.adminToUpdate.prenom:null, Validators.required),
+      nom: this.fromBuilder.control((this.is_update)?this.adminToUpdate.nom:null, Validators.required),
+      login: this.fromBuilder.control((this.is_update)?this.adminToUpdate.login:null, Validators.required),
+      adresse: this.fromBuilder.control((this.is_update)?this.adminToUpdate.adresse:null, Validators.required),
+      telephone: this.fromBuilder.control((this.is_update)?this.adminToUpdate.telephone:null, [Validators.pattern(this.telephonePattern), Validators.required]),
+      genre_id: this.fromBuilder.control(null)
     })
   }
   public getGenres(){
@@ -38,8 +46,8 @@ export class FormAdminComponent implements OnInit {
       error:(error)=> console.log(error)
     })
   }
-
   async addAdmin() {
+    // Ajout d'un nouvel admin
     const admin: Admin = {
       id: null,
       prenom: this.addAdminForm.value.prenom,
@@ -67,6 +75,25 @@ export class FormAdminComponent implements OnInit {
         }
       }
     })
+    // Modification d'un admin
+    if (this.is_update) {
+      const admin: Admin = {
+        id: this.adminToUpdate.id,
+        prenom: this.addAdminForm.value.prenom,
+        nom: this.addAdminForm.value.nom,
+        login: this.adminToUpdate.login,
+        adresse: this.addAdminForm.value.adresse,
+        telephone: this.adminToUpdate.telephone,
+        is_active: true,
+        genre: {
+          id: this.addAdminForm.value.genre_id,
+          libelle: null
+        }
+      }
+      await this.adminService.updateAdmin(admin).subscribe({
+        next: () => this.router.navigate(['admins']),
+      })
+    }
   }
   get prenom(){return this.addAdminForm.get('prenom')}
   get nom(){return this.addAdminForm.get('nom')}

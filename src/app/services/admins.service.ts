@@ -11,7 +11,7 @@ export class AdminsService {
 
   constructor(private httpClient: HttpClient) {
   }
-  admins!:any
+  admins:any
   public getAdmins():Observable<any>{
 
     this.httpClient.get(`${environment.apiUrl}/administrateurs`).subscribe({
@@ -41,5 +41,8 @@ export class AdminsService {
 }
   public changeStatus(id:number){
     return this.httpClient.put(`${environment.apiUrl}/utilisateurs/status/${id}`,{})
+  }
+  public updateAdmin(admin:Admin){
+    return this.httpClient.put(`${environment.apiUrl}/utilisateurs/${admin.id}`,admin)
   }
 }

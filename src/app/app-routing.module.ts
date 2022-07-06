@@ -5,7 +5,8 @@ import {FormAdminComponent} from "./components/form-admin/form-admin.component";
 
 const routes: Routes = [
   {path:"admins", component: AdminsComponent},
-  {path:"admins/add", component:FormAdminComponent}
+  {path:"admins/add", component:FormAdminComponent},
+  {path:"utilisateurs/:id", component:FormAdminComponent}
 ];
 
 @NgModule({
