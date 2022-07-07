@@ -9,6 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {NgxPaginationModule} from "ngx-pagination";
 import {ReactiveFormsModule} from "@angular/forms";
 import { FormAdminComponent } from './components/form-admin/form-admin.component';
+import { ProfesseursComponent } from './components/professeurs/professeurs.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FormAdminComponent } from './components/form-admin/form-admin.component
     MenuComponent,
     AdminsComponent,
     FormAdminComponent,
+    ProfesseursComponent,
   ],
   imports: [
     BrowserModule,

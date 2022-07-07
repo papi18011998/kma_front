@@ -91,7 +91,10 @@ export class FormAdminComponent implements OnInit {
         }
       }
       await this.adminService.updateAdmin(admin).subscribe({
-        next: () => this.router.navigate(['admins']),
+        next: () =>{
+          localStorage.removeItem('admin')
+          this.router.navigate(['admins'])
+        },
       })
     }
   }
