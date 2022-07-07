@@ -10,6 +10,7 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {ReactiveFormsModule} from "@angular/forms";
 import { FormAdminComponent } from './components/form-admin/form-admin.component';
 import { ProfesseursComponent } from './components/professeurs/professeurs.component';
+import { ClassesComponent } from './components/classes/classes.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ProfesseursComponent } from './components/professeurs/professeurs.compo
     AdminsComponent,
     FormAdminComponent,
     ProfesseursComponent,
+    ClassesComponent,
   ],
   imports: [
     BrowserModule,

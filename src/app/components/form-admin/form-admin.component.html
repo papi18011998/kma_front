@@ -20,7 +20,7 @@
       <div  class="text-danger" *ngIf="existingLogin">Le login existe déjà !!!</div>
     </div>
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">
-      <input type="text" class="form-control" placeholder="Téléphone" formControlName="telephone" [pattern]="telephonePattern" [readOnly]="is_update">
+      <input type="text" class="form-control" placeholder="Ex: 771234433" formControlName="telephone" [pattern]="telephonePattern" [readOnly]="is_update">
       <div  class="text-danger" *ngIf="telephone && telephone.touched && telephone.errors">Format de téléphone incorrect</div>
       <div  class="text-danger" *ngIf="existingTelephone">Le Téléphone existe déjà !!!</div>
     </div>
