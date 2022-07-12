@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProfesseursService} from "../../services/professeurs.service";
+import {AdminsService} from "../../services/admins.service";
 
 @Component({
   selector: 'app-professeurs',
@@ -8,7 +9,7 @@ import {ProfesseursService} from "../../services/professeurs.service";
 })
 export class ProfesseursComponent implements OnInit {
 
-  constructor(private professeurService:ProfesseursService) { }
+  constructor(private professeurService:ProfesseursService,private adminsService:AdminsService) { }
   professeurs:any
   page:number =1
   ngOnInit(): void {
@@ -20,5 +21,15 @@ export class ProfesseursComponent implements OnInit {
         this.professeurs=data
       }
     })
+  }
+
+  changeStatus(id:number) {
+    let response = confirm("Voulez-vous vraiment changer le status de cet utilisateur ?")
+    if (response){
+      this.adminsService.changeStatus(id).subscribe({
+        next:(data)=>{this.getProfesseurs()},
+        error:(error)=>{console.log(error)}
+      })
+    }
   }
 }
