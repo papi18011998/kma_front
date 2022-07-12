@@ -22,10 +22,10 @@ export class ClassesComponent implements OnInit {
     })
   }
   public getClasses(){
+
     this.classeService.getClasses().subscribe({
       next:(data)=>{
         this.classes=data
-        console.log(data)
       }
     })
   }

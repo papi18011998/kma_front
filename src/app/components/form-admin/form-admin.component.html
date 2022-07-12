@@ -37,6 +37,7 @@
     </div>
   </div>
     <div class="text-center">
+      <div class="text-danger font-weight-bold my-3" *ngIf="!is_update">NB : Un SMS contenant le mot de passe sera envoye sur ce numero</div>
       <button type="submit" class="mt-4 btn btn-primary col-lg-3" [disabled]="addAdminForm.invalid">{{(is_update)?'Modifier':'Enregistrer'}}</button>
     </div>
 </form>

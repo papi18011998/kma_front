@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { FormAdminComponent } from './components/form-admin/form-admin.component';
 import { ProfesseursComponent } from './components/professeurs/professeurs.component';
 import { ClassesComponent } from './components/classes/classes.component';
+import { FormProfesseurComponent } from './components/form-professeur/form-professeur.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ClassesComponent } from './components/classes/classes.component';
     FormAdminComponent,
     ProfesseursComponent,
     ClassesComponent,
+    FormProfesseurComponent,
   ],
   imports: [
     BrowserModule,

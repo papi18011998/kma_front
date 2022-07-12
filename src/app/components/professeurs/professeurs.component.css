@@ -1,0 +1,8 @@
+.switch-to-mobile{
+    display: none;
+}
+@media (min-width: 768px) {
+    .switch-to-mobile{
+      display: block;
+    }
+}
