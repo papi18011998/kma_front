@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 import {ProfesseursService} from "../../services/professeurs.service";
 import {ClassesService} from "../../services/classes.service";
 import {AdminsService} from "../../services/admins.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Professeur} from "../../models/professeur";
 
 @Component({
@@ -18,27 +18,36 @@ export class FormProfesseurComponent implements OnInit {
   classesEnseignees!:[]
   existingLogin:boolean = false
   existingTelephone:boolean = false
+  is_update:boolean = false
+  professeurToUpdate:any
   genres:any;
   constructor(private formBuilder:FormBuilder,
               private professeurService:ProfesseursService,
               private classeService:ClassesService,
               private adminService:AdminsService,
-              private route:Router) { }
+              private route:Router,
+              private routeParams:ActivatedRoute) { }
 
   ngOnInit(): void {
   this.getMatieres()
   this.getClasses()
   this.getGenres()
+
+  if(this.routeParams.snapshot.params['id']){
+    this.is_update = true
+    // @ts-ignore
+    this.professeurToUpdate = JSON.parse(localStorage.getItem('professeur'))
+  }
   this.addProfesseurForm = this.formBuilder.group({
-      prenom: this.formBuilder.control(null, Validators.required),
-      nom: this.formBuilder.control(null, Validators.required),
-      login: this.formBuilder.control(null, Validators.required),
-      adresse: this.formBuilder.control(null, Validators.required),
-      telephone: this.formBuilder.control(null, [Validators.pattern('^(77|78|76|70|75)[0-9]{7}$'), Validators.required]),
+      prenom: this.formBuilder.control((this.is_update)?this.professeurToUpdate.prenom:null, Validators.required),
+      nom: this.formBuilder.control((this.is_update)?this.professeurToUpdate.nom:null, Validators.required),
+      login: this.formBuilder.control((this.is_update)?this.professeurToUpdate.login:null, Validators.required),
+      adresse: this.formBuilder.control((this.is_update)?this.professeurToUpdate.adresse:null, Validators.required),
+      telephone: this.formBuilder.control((this.is_update)?this.professeurToUpdate.telephone:null, [Validators.pattern('^(77|78|76|70|75)[0-9]{7}$'), Validators.required]),
       genre_id: this.formBuilder.control(null),
       matiere_id: this.formBuilder.control(null),
-      date_prise_fonction: this.formBuilder.control(null,[Validators.required]),
-      classes: new FormArray([])
+      date_prise_fonction: this.formBuilder.control((this.is_update)?this.professeurToUpdate.date_prise_fonction:null,[Validators.required]),
+      classes: new FormArray([],Validators.required)
     })
   }
   public getMatieres(){
@@ -73,6 +82,39 @@ export class FormProfesseurComponent implements OnInit {
     this.classesEnseignees = checkedClasses.value
   }
   async submitProfesseur() {
+    //Modification de professeur
+    if (this.is_update){
+      const professeur:Professeur ={
+        professeurDTO: {
+          id: this.professeurToUpdate.id,
+          prenom: this.addProfesseurForm.value.prenom,
+          nom: this.addProfesseurForm.value.nom,
+          login: this.professeurToUpdate.login,
+          adresse: this.addProfesseurForm.value.adresse,
+          is_active: true,
+          genre: {
+            id: this.addProfesseurForm.value.genre_id,
+            libelle:null
+          },
+          telephone: this.addProfesseurForm.value.telephone,
+          date_prise_fonction: this.addProfesseurForm.value.date_prise_fonction,
+          matiere: {
+            id: this.addProfesseurForm.value.matiere_id,
+            libelle: null,
+            coefficient: null
+          }
+        },
+        classes: this.classesEnseignees
+      }
+
+      this.professeurService.updateProfesseur(professeur).subscribe({
+        next:()=>{
+          localStorage.removeItem('professeur')
+          this.route.navigate(['professeurs'])
+        }
+      })
+    }else{
+      // Ajout de professeur
       const professeur:Professeur ={
         professeurDTO: {
           id: null,
@@ -99,16 +141,17 @@ export class FormProfesseurComponent implements OnInit {
         next:(data)=>{(data!=null)?this.existingLogin=true:this.existingLogin=false}
       })
 
-    this.adminService.findByTelephone(this.addProfesseurForm.value.telephone.toLowerCase()).subscribe({
-      next: (data) => {
-        (data != null) ? this.existingLogin = true : this.existingLogin = false;
-        if (!this.existingLogin && !this.existingTelephone) {
-          this.professeurService.addProfesseur(professeur).subscribe({
-            next: () => this.route.navigate(['professeurs']),
-          });
+      this.adminService.findByTelephone(this.addProfesseurForm.value.telephone.toLowerCase()).subscribe({
+        next: (data) => {
+          (data != null) ? this.existingLogin = true : this.existingLogin = false;
+          if (!this.existingLogin && !this.existingTelephone) {
+            this.professeurService.addProfesseur(professeur).subscribe({
+              next: () => this.route.navigate(['professeurs']),
+            });
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   get prenom(){return this.addProfesseurForm.get('prenom')}

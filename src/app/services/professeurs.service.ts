@@ -28,4 +28,8 @@ export class ProfesseursService {
      })
     return of(this.professseurs)
   }
+
+  updateProfesseur(professeur: Professeur) {
+    return this.httpClient.put(`${environment.apiUrl}/professeurs/${professeur.professeurDTO.id}`,professeur)
+  }
 }

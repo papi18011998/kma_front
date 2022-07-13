@@ -1,5 +1,5 @@
 <div class="pagetitle">
-  <h1>Ajout de professeurs</h1>
+  <h1>{{(is_update)?'Modification de professeur':'Ajout de professeur'}}</h1>
 </div>
 <form [formGroup]="addProfesseurForm" (ngSubmit)="submitProfesseur()">
   <div class="row mb-4">
@@ -15,12 +15,12 @@
   </div>
   <div class="row mb-4">
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">
-      <input type="text" class="form-control" placeholder="Metre votre login" formControlName="login" >
+      <input type="text" class="form-control" placeholder="Metre votre login" formControlName="login" [readOnly]="is_update">
       <div  class="text-danger" *ngIf="login && login.touched && login.errors?.['required']">Le login est obligatoire</div>
       <div  class="text-danger" *ngIf="existingLogin">Le login existe déjà !!!</div>
     </div>
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">
-      <input type="text" class="form-control" placeholder="Ex: 771234433" formControlName="telephone" >
+      <input type="text" class="form-control" placeholder="Ex: 771234433" formControlName="telephone" [readOnly]="is_update">
       <div  class="text-danger" *ngIf="telephone && telephone.touched && telephone.errors">Format de téléphone incorrect</div>
       <div  class="text-danger" *ngIf="existingTelephone">Le Téléphone existe déjà !!!</div>
     </div>

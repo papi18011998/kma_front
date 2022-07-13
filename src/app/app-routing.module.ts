@@ -15,6 +15,7 @@ const routes: Routes = [
   {path:"classes/:id",component:ClassesComponent},
   {path:"professeurs",component:ProfesseursComponent},
   {path:"professeurs/add",component:FormProfesseurComponent},
+  {path:"professeurs/:id",component:FormProfesseurComponent}
 
 ];
 
