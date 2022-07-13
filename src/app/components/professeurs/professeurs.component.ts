@@ -3,6 +3,7 @@ import {ProfesseursService} from "../../services/professeurs.service";
 import {AdminsService} from "../../services/admins.service";
 import {Router} from "@angular/router";
 import {Professeur} from "../../models/professeur";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-professeurs',
@@ -11,11 +12,19 @@ import {Professeur} from "../../models/professeur";
 })
 export class ProfesseursComponent implements OnInit {
 
-  constructor(private professeurService:ProfesseursService,private adminsService:AdminsService,private router:Router) { }
+  constructor(private professeurService:ProfesseursService,
+              private adminsService:AdminsService,
+              private router:Router,
+              private form:FormBuilder) { }
   professeurs!:any
   page:number =1
+  searchForm!:FormGroup
   ngOnInit(): void {
     this.getProfesseurs()
+    this.searchForm =this.form.group({
+      nom:this.form.control(null)
+    })
+
   }
   getProfesseurs(){
     this.professeurService.getProfesseurs().subscribe({
@@ -39,5 +48,11 @@ export class ProfesseursComponent implements OnInit {
     let founded = this.professeurs.find((professeur:any)=>professeur.id==id)
     localStorage.setItem('professeur',JSON.stringify(founded).toString())
     this.router.navigate(['professeurs',id])
+  }
+
+  search() {
+    if (this.searchForm.value.nom == null)
+      return
+    this.professeurs = this.professeurService.searchProfesseur(this.searchForm.value.nom.toLowerCase())
   }
 }

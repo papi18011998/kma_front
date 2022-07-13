@@ -32,4 +32,8 @@ export class ProfesseursService {
   updateProfesseur(professeur: Professeur) {
     return this.httpClient.put(`${environment.apiUrl}/professeurs/${professeur.professeurDTO.id}`,professeur)
   }
+
+  searchProfesseur(nom: string) {
+    return this.professseurs.filter((professeur:any)=>professeur.prenom.toLowerCase().includes(nom.toLowerCase()))
+  }
 }
