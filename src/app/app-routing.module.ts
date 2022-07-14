@@ -5,6 +5,7 @@ import {FormAdminComponent} from "./components/form-admin/form-admin.component";
 import {ClassesComponent} from "./components/classes/classes.component";
 import {ProfesseursComponent} from "./components/professeurs/professeurs.component";
 import {FormProfesseurComponent} from "./components/form-professeur/form-professeur.component";
+import {ParentsComponent} from "./components/parents/parents.component";
 
 const routes: Routes = [
   {path:"admins", component: AdminsComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:"classes/:id",component:ClassesComponent},
   {path:"professeurs",component:ProfesseursComponent},
   {path:"professeurs/add",component:FormProfesseurComponent},
-  {path:"professeurs/:id",component:FormProfesseurComponent}
+  {path:"professeurs/:id",component:FormProfesseurComponent},
+  {path:"parents" ,component:ParentsComponent},
 
 ];
 

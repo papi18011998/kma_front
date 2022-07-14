@@ -12,6 +12,7 @@ import { FormAdminComponent } from './components/form-admin/form-admin.component
 import { ProfesseursComponent } from './components/professeurs/professeurs.component';
 import { ClassesComponent } from './components/classes/classes.component';
 import { FormProfesseurComponent } from './components/form-professeur/form-professeur.component';
+import { ParentsComponent } from './components/parents/parents.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormProfesseurComponent } from './components/form-professeur/form-profe
     ProfesseursComponent,
     ClassesComponent,
     FormProfesseurComponent,
+    ParentsComponent,
   ],
   imports: [
     BrowserModule,
