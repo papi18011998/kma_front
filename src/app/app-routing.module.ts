@@ -6,6 +6,8 @@ import {ClassesComponent} from "./components/classes/classes.component";
 import {ProfesseursComponent} from "./components/professeurs/professeurs.component";
 import {FormProfesseurComponent} from "./components/form-professeur/form-professeur.component";
 import {ParentsComponent} from "./components/parents/parents.component";
+import {ElevesComponent} from "./components/eleves/eleves.component";
+import {FormEleveComponent} from "./components/form-eleve/form-eleve.component";
 
 const routes: Routes = [
   {path:"admins", component: AdminsComponent},
@@ -18,7 +20,8 @@ const routes: Routes = [
   {path:"professeurs/add",component:FormProfesseurComponent},
   {path:"professeurs/:id",component:FormProfesseurComponent},
   {path:"parents" ,component:ParentsComponent},
-
+  {path:"eleves" ,component:ElevesComponent},
+  {path:"eleves/add" ,component:FormEleveComponent},
 ];
 
 @NgModule({

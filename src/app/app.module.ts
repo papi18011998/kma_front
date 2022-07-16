@@ -13,6 +13,8 @@ import { ProfesseursComponent } from './components/professeurs/professeurs.compo
 import { ClassesComponent } from './components/classes/classes.component';
 import { FormProfesseurComponent } from './components/form-professeur/form-professeur.component';
 import { ParentsComponent } from './components/parents/parents.component';
+import { ElevesComponent } from './components/eleves/eleves.component';
+import { FormEleveComponent } from './components/form-eleve/form-eleve.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { ParentsComponent } from './components/parents/parents.component';
     ClassesComponent,
     FormProfesseurComponent,
     ParentsComponent,
+    ElevesComponent,
+    FormEleveComponent,
   ],
   imports: [
     BrowserModule,
