@@ -8,6 +8,7 @@ import {FormProfesseurComponent} from "./components/form-professeur/form-profess
 import {ParentsComponent} from "./components/parents/parents.component";
 import {ElevesComponent} from "./components/eleves/eleves.component";
 import {FormEleveComponent} from "./components/form-eleve/form-eleve.component";
+import {FormParentComponent} from "./components/form-parent/form-parent.component";
 
 const routes: Routes = [
   {path:"admins", component: AdminsComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:"professeurs/add",component:FormProfesseurComponent},
   {path:"professeurs/:id",component:FormProfesseurComponent},
   {path:"parents" ,component:ParentsComponent},
+  {path:"parents/add",component:FormParentComponent},
   {path:"eleves" ,component:ElevesComponent},
   {path:"eleves/add" ,component:FormEleveComponent},
 ];

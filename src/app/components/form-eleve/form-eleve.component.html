@@ -27,7 +27,7 @@
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">
       <label >Parent de l'élève</label>
       <select id="inputState1" class="form-control" required formControlName="parent_id">
-        <option *ngFor="let parent of parents._embedded.parents" value="{{parent.id}}" >{{parent.prenom}} {{parent.nom}}</option>
+        <option *ngFor="let parent of parents" value="{{parent.id}}" >{{parent.prenom}} {{parent.nom}}</option>
       </select>
     </div>
     <div class="col-md-6 col-sm-12 mb-3 mb-lg-0">

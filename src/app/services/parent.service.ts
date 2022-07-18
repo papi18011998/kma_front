@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
+import {Parent} from "../models/parent";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,12 @@ export class ParentService {
   }
 
   searchParent(nom: string) {
+  }
+  public addParent(parent:Parent){
+    this.httpClient.post(`${environment.apiUrl}/parents`,parent).subscribe({
+      next:(data)=>{this.parents={...data}},
+      error:(error)=>console.log(error)
+    })
+    return of(this.parents)
   }
 }

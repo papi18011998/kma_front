@@ -15,6 +15,11 @@ import { FormProfesseurComponent } from './components/form-professeur/form-profe
 import { ParentsComponent } from './components/parents/parents.component';
 import { ElevesComponent } from './components/eleves/eleves.component';
 import { FormEleveComponent } from './components/form-eleve/form-eleve.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatStepperModule} from "@angular/material/stepper";
+import { FormParentComponent } from './components/form-parent/form-parent.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -28,13 +33,18 @@ import { FormEleveComponent } from './components/form-eleve/form-eleve.component
     ParentsComponent,
     ElevesComponent,
     FormEleveComponent,
+    FormParentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [MenuComponent,AppComponent]
