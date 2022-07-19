@@ -5,6 +5,9 @@ import {ClassesService} from "../../services/classes.service";
 import {AdminsService} from "../../services/admins.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Professeur} from "../../models/professeur";
+import {Genre} from "../../models/genre";
+import {Classe} from "../../models/classe";
+import {Matiere} from "../../models/matiere";
 
 @Component({
   selector: 'app-form-professeur',
@@ -13,14 +16,14 @@ import {Professeur} from "../../models/professeur";
 })
 export class FormProfesseurComponent implements OnInit {
   addProfesseurForm!:FormGroup
-  matieres!:any
-  classes!:any
+  matieres!:Matiere[]
+  classes!:Classe[]
   classesEnseignees!:[]
   existingLogin:boolean = false
   existingTelephone:boolean = false
   is_update:boolean = false
   professeurToUpdate:any
-  genres:any;
+  genres!:Genre[];
   constructor(private formBuilder:FormBuilder,
               private professeurService:ProfesseursService,
               private classeService:ClassesService,

@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Parent} from "../../models/parent";
 import {Router} from "@angular/router";
 import {ParentService} from "../../services/parent.service";
+import {Genre} from "../../models/genre";
+import {Classe} from "../../models/classe";
 
 @Component({
   selector: 'app-form-parent',
@@ -12,8 +14,8 @@ import {ParentService} from "../../services/parent.service";
   styleUrls: ['./form-parent.component.css']
 })
 export class FormParentComponent implements OnInit {
-  genres!:any
-  classes!:any
+  genres!:Genre[]
+  classes!:Classe[]
   formParent!: FormGroup
   formEleve!:FormGroup
   constructor (private adminService:AdminsService,

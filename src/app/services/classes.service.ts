@@ -8,15 +8,14 @@ import {Classe} from "../models/classe";
   providedIn: 'root'
 })
 export class ClassesService {
-  classes!:any
+  classes!:Classe[]
   constructor(private httpClient:HttpClient) { }
-  public getClasses():Observable<any>{
-    this.httpClient.get(environment.apiUrl+'/classes').subscribe({
-      next:(data)=>{
-        this.classes=data
-      }
+  public getClasses():Observable<Classe[]>{
+    this.httpClient.get<Classe[]>(environment.apiUrl+'/classes').subscribe({
+      next:(data)=>this.classes = data,
+      error:(error)=>console.log(error)
     })
-    return this.httpClient.get(`${environment.apiUrl}/classes`)
+    return this.httpClient.get<Classe[]>(environment.apiUrl+'/classes')
   }
 
   searchClasses(nom: string) {

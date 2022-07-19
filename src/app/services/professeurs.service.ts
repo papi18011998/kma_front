@@ -3,30 +3,28 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable, of} from "rxjs";
 import {Professeur} from "../models/professeur";
+import {ProfesseurModelGet} from "../models/professeur-model-get";
+import {Matiere} from "../models/matiere";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfesseursService {
-  professseurs!:any
+  professseurs!:ProfesseurModelGet[]
   constructor( private httpClient:HttpClient) { }
-  public getProfesseurs():Observable<any>{
-    this.httpClient.get(`${environment.apiUrl}/professeurs`).subscribe({
+  public getProfesseurs():Observable<ProfesseurModelGet[]>{
+    this.httpClient.get<ProfesseurModelGet[]>(`${environment.apiUrl}/professeurs`).subscribe({
       next:(data)=>{
         this.professseurs=data
       }
     })
-    return this.httpClient.get(`${environment.apiUrl}/professeurs`)
+    return this.httpClient.get<ProfesseurModelGet[]>(`${environment.apiUrl}/professeurs`)
   }
   public getMateires(){
-    return this.httpClient.get(`${environment.apiUrl}/matieres`)
+    return this.httpClient.get<Matiere[]>(`${environment.apiUrl}/matieres`)
   }
   public addProfesseur(professeur:Professeur){
-     this.httpClient.post(`${environment.apiUrl}/professeurs`,professeur).subscribe({
-       next:(data)=> this.professseurs={...data},
-       error:(error)=>console.log(error)
-     })
-    return of(this.professseurs)
+     return this.httpClient.post(`${environment.apiUrl}/professeurs`,professeur)
   }
 
   updateProfesseur(professeur: Professeur) {

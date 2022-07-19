@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ClassesService} from "../../services/classes.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Classe} from "../../models/classe";
 
 @Component({
   selector: 'app-classes',
@@ -11,7 +12,7 @@ export class ClassesComponent implements OnInit {
 
   constructor(private classeService:ClassesService, private formBuilder:FormBuilder) { }
 
-  classes!:any
+  classes!:Classe[]
   page: string | number=1;
   searchForm!:FormGroup
 

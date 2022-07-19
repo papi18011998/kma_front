@@ -6,6 +6,8 @@ import {ParentService} from "../../services/parent.service";
 import {ClassesService} from "../../services/classes.service";
 import {Eleve} from "../../models/eleve";
 import {Router} from "@angular/router";
+import {Genre} from "../../models/genre";
+import {Classe} from "../../models/classe";
 
 @Component({
   selector: 'app-form-eleve',
@@ -13,9 +15,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./form-eleve.component.css']
 })
 export class FormEleveComponent implements OnInit {
-  genres!:any
+  genres!:Genre[]
   parents!:any
-  classes!:any
+  classes!:Classe[]
   is_update:boolean=false
   eleveForm!: FormGroup;
   constructor(private eleveService:ElevesService,

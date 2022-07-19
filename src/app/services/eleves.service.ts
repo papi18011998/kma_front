@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Eleve} from "../models/eleve";
-import {of} from "rxjs";
+import {Observable, of} from "rxjs";
+import {EleveModelGet} from "../models/eleve-model-get";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ElevesService {
-  eleves!:any
+  eleves!: EleveModelGet[]|any
   constructor(private httpClient: HttpClient) { }
-  public getEleves(){
-    this.httpClient.get(`${environment.apiUrl}/eleves`).subscribe({
+  public getEleves():Observable<EleveModelGet[]>{
+    this.httpClient.get<EleveModelGet[]>(`${environment.apiUrl}/eleves`).subscribe({
       next:(data)=>this.eleves=data
     })
-    return this.httpClient.get(`${environment.apiUrl}/eleves`)
+    return this.httpClient.get<EleveModelGet[]>(`${environment.apiUrl}/eleves`)
     }
 
   addEleve(eleve: Eleve) {

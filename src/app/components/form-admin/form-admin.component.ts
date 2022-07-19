@@ -3,6 +3,7 @@ import {AdminsService} from "../../services/admins.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Admin} from "../../models/admin";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Genre} from "../../models/genre";
 
 
 @Component({
@@ -18,7 +19,7 @@ export class FormAdminComponent implements OnInit {
   admins!:any
   test:number = 0
   adminToUpdate!:any
-  genres!:any
+  genres!:Genre[]
   addAdminForm!:FormGroup
   is_update:boolean = false
   telephonePattern:string = '^(77|78|76|70|75)[0-9]{7}$'

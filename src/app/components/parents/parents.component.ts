@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ParentService} from "../../services/parent.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {ParentModelGet} from "../../models/parent-model-get";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-parents',
@@ -8,7 +10,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./parents.component.css']
 })
 export class ParentsComponent implements OnInit {
-  parents!:any
+  parents!: ParentModelGet[]
   page:number = 1;
   searchForm!:FormGroup
   constructor( private parentService:ParentService, private form:FormBuilder) { }
@@ -20,7 +22,7 @@ export class ParentsComponent implements OnInit {
     })
   }
  public getParents(){
-    this.parents = this.parentService.getParents().subscribe({
+    this.parentService.getParents().subscribe({
       next:(data)=>{this.parents=data}
     })
  }

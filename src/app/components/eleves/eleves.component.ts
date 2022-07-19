@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ElevesService} from "../../services/eleves.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {EleveModelGet} from "../../models/eleve-model-get";
 
 @Component({
   selector: 'app-eleves',
@@ -8,7 +9,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./eleves.component.css']
 })
 export class ElevesComponent implements OnInit {
-  eleves!:any
+  eleves!:EleveModelGet[]
   searchForm!:FormGroup
   page:number = 1
   constructor(private eleveService:ElevesService,private form:FormBuilder) { }
@@ -20,7 +21,7 @@ export class ElevesComponent implements OnInit {
     })
   }
  public getEleves(){
-    this.eleves = this.eleveService.getEleves().subscribe({
+    this.eleveService.getEleves().subscribe({
      next:(data)=>this.eleves=data,
      error:(err)=>console.log(err)
     })

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {environment} from "../../environments/environment";
 import {Admin} from "../models/admin";
+import {Genre} from "../models/genre";
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +12,19 @@ export class AdminsService {
 
   constructor(private httpClient: HttpClient) {
   }
-  admins:any
-  public getAdmins():Observable<any>{
+  admins!:Admin[]
+  public getAdmins():Observable<Admin[]>{
 
-    this.httpClient.get(`${environment.apiUrl}/administrateurs`).subscribe({
+    this.httpClient.get<Admin[]>(`${environment.apiUrl}/administrateurs`).subscribe({
       next:(data)=>this.admins=data
     })
-    return this.httpClient.get(`${environment.apiUrl}/administrateurs`)
+    return this.httpClient.get<Admin[]>(`${environment.apiUrl}/administrateurs`)
   }
   public searchAdmin(nom:string){
       return this.admins.filter((admin:Admin)=>admin.prenom.toLowerCase().includes(nom.toLowerCase()))
   }
-  public getGenres(){
-    return this.httpClient.get(`${environment.apiUrl}/genres`)
+  public getGenres():Observable<Genre[]>{
+    return this.httpClient.get<Genre[]>(`${environment.apiUrl}/genres`)
   }
   public findByLogin(login:string){
     return this.httpClient.get(`${environment.apiUrl}/utilisateurs/login/${login}`)
@@ -33,11 +34,7 @@ export class AdminsService {
   }
 
   public addAdmin(admin:Admin){
-    this.httpClient.post(`${environment.apiUrl}/administrateurs`,admin).subscribe({
-      next:(data)=>this.admins ={...data},
-      error:(error)=>console.log(error)
-    })
-    return of(this.admins)
+    return this.httpClient.post(`${environment.apiUrl}/administrateurs`,admin)
 }
   public changeStatus(id:number){
     return this.httpClient.put(`${environment.apiUrl}/utilisateurs/status/${id}`,{})
