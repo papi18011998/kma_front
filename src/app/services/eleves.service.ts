@@ -19,9 +19,6 @@ export class ElevesService {
     }
 
   addEleve(eleve: Eleve) {
-    this.httpClient.post(`${environment.apiUrl}/eleves`, eleve).subscribe({
-      next:(data)=>this.eleves={...data}
-    })
-    return of(this.eleves)
+    return this.httpClient.post<Eleve>(`${environment.apiUrl}/eleves`, eleve)
   }
 }

@@ -7,7 +7,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { AdminsComponent } from './components/admins/admins.component';
 import {HttpClientModule} from "@angular/common/http";
 import {NgxPaginationModule} from "ngx-pagination";
-import {ReactiveFormsModule} from "@angular/forms";
+import { ReactiveFormsModule} from "@angular/forms";
 import { FormAdminComponent } from './components/form-admin/form-admin.component';
 import { ProfesseursComponent } from './components/professeurs/professeurs.component';
 import { ClassesComponent } from './components/classes/classes.component';

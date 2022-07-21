@@ -25,4 +25,7 @@ export class ParentService {
   public addParent(parent:Parent){
     return this.httpClient.post(`${environment.apiUrl}/parents`,parent)
   }
+  public finByCni(cni:string){
+   return this.httpClient.get<ParentModelGet>(`${environment.apiUrl}/parents/cni/${cni}`)
+  }
 }

@@ -2,7 +2,7 @@
   <h1>Ajout de Parent</h1>
 </div>
     <mat-horizontal-stepper linear>
-        <mat-step label="Informations du parent" [completed]="(prenom && prenom.valid) && (nom && nom.valid) && (cni && cni.valid) && (login && login.valid) && (telephone && telephone.valid) && (adresse && adresse.valid) && (genre_id && genre_id.valid)">
+        <mat-step label="Informations du parent">
             <form [formGroup]="formParent">
               <div class="row mb-4">
                 <div class="col-md-4 col-sm-12 mb-3 mb-lg-0">
@@ -45,7 +45,7 @@
                 </div>
               </div>
               <div class="mt-4">
-                <button class="btn btn-success" matStepperNext>Suivant</button>
+                <button class="btn btn-success" matStepperNext [disabled]="formParent.invalid">Suivant</button>
               </div>
             </form>
         </mat-step>
